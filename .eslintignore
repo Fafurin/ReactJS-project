@@ -1,0 +1,8 @@
+.history
+node_modules
+coverage
+reports
+storybook-static
+dist
+presa
+build

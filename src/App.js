@@ -1,16 +1,11 @@
 import React from 'react';
-import { Form } from './components/classes/Form/Form';
-import { Form as FormFunc} from './components/funcs/Form/Form';
-import { Toggle } from './components/funcs/Toggle/Toggle';
+import {MessageList} from "./components/funcs/MessageList/MessageList";
 
 export const App = () => {
+
     return (
-        <>
-            <Form/>
-            <hr/>
-            <FormFunc/>
-            <hr/>
-            <Toggle/>
-        </>
+        <div className="app">
+            <MessageList/>
+        </div>
     )
 }
