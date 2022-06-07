@@ -1,6 +1,8 @@
 import style from "../MessageList/MessageList.module.css";
 import {useState} from "react";
 import {AUTHOR} from "../../constants";
+import {Button} from "./components/Button";
+import {Textarea} from "./components/Textarea";
 
 export const Form = ({addMessage}) => {
 
@@ -15,14 +17,12 @@ export const Form = ({addMessage}) => {
         setText('');
     }
 
-
-
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <p className={style.label}>Message:</p>
-            <textarea value={text} onChange={event => setText(event.target.value)} className={style.text}/>
+            <Textarea text={text} setText={setText}/>
             <br/>
-            <button>Send</button>
+            <Button label="send"/>
         </form>
     );
 };
