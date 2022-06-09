@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --mode=development --open",
     "build": "webpack --mode=production",
-    "lint": "npx eslint --ext .js, .jsx --fix ./",
+    "lint": "npx tsc --noEmit && npx eslint --ext .js, .jsx, .ts, .tsx --fix ./",
     "predeploy": "npm run build",
     "deploy:web": "npm run build && gh-pages -d build",
     "deploy:storybook": "npm run build-storybook && gh-pages -d storybook-static",
@@ -35,9 +35,11 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.0",
+    "@typescript-eslint/parser": "^5.27.1",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.5.1",
@@ -53,16 +55,24 @@
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
+    "typescript": "^4.7.3",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.2",
+    "@mui/styled-engine-sc": "^5.8.0",
     "gh-pages": "^4.0.0",
     "identity-obj-proxy": "^3.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "styled-components": "^5.3.5"
   },
   "loki": {
     "configurations": {

@@ -1,5 +1,8 @@
+import TextField from '@mui/material/TextField';
+
 export const Textarea = ({text, setText}) => {
     return (
-        <textarea value={text} onChange={event => setText(event.target.value)}/>
+        <TextField id="standard-basic" variant="standard" value={text} onChange={event => setText(event.target.value)}/>
     );
 }
+
