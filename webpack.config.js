@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: path.resolve(__dirname, './src/index.jsx'),
+    entry: path.resolve(__dirname, './src/index.tsx'),
     output: {
         clean: true,
         environment: {
@@ -15,13 +15,13 @@ module.exports = {
         path: path.resolve(__dirname, './build'),
     },
     resolve: {
-      extensions: ['.jsx', '.js'],
+      extensions: ['.jsx', '.js', '.tsx', '.ts'],
     },
     module: {
       rules: [
           {
               exclude: /node_modules/,
-              test: /\.jsx?$/,
+              test: /\.(j|t)sx?$/,
               use: ['babel-loader']
           },
           {
