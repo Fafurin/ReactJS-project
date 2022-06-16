@@ -1,6 +1,6 @@
 import React from "react";
 import {FC} from "react";
-import {Message} from "../../types";
+import {Message} from "../../constants";
 
 interface MessageListProps {
     messages: Message[]

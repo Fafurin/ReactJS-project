@@ -5,6 +5,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
+    devServer: {
+      client: {
+          logging: 'info',
+      },
+      compress: true,
+      historyApiFallback: true,
+      port: 8000,
+    },
+    devtool:
+        process.env.NODE_ENV === 'production'
+            ? 'hidden-source-map'
+            : 'eval-source-map',
     entry: path.resolve(__dirname, './src/index.tsx'),
     output: {
         clean: true,
