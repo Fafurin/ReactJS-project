@@ -12,7 +12,7 @@ interface ChatPageProps {
     onAddChat: (chat: Chat) => void,
     messages: Messages,
     onAddMessage: (id: string, msg: Message) => void,
-    onDeleteChat: (chatId: string) => void
+    onDeleteChat: (chatName: string) => void
 }
 
 export const ChatPage: FC<ChatPageProps> = ({chats, onAddChat, messages, onAddMessage, onDeleteChat}) => {

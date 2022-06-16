@@ -7,7 +7,7 @@ import {Chat} from "../../constants";
 interface ChatListProps {
     chats: Chat[],
     onAddChat: (chat: Chat) => void,
-    onDeleteChat: (chatId: string) => void
+    onDeleteChat: (chatName: string) => void
 }
 
 export const ChatList: FC<ChatListProps> = ({chats, onAddChat, onDeleteChat}) => {
@@ -37,7 +37,7 @@ export const ChatList: FC<ChatListProps> = ({chats, onAddChat, onDeleteChat}) =>
                         <Link to={`/chats/${chat.name}`}>
                             {chat.name}
                         </Link>
-                        <button onClick={() => {onDeleteChat(chat.id)}}>Delete Chat</button>
+                        <button onClick={() => {onDeleteChat(chat.name)}}>Delete Chat</button>
                     </ListItem>
                 ))}
             </ul>

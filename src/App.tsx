@@ -32,11 +32,10 @@ export const App: FC = () => {
         })
     };
 
-    const onDeleteChat = (chatId: string) => {
-        const index = chats.findIndex(n => n.id === chatId);
-        if (index !== -1) {
-            chats.splice(index, 1);
-        }
+    const onDeleteChat = (chatName: string) => {
+        const newMessages = {... messages};
+        delete newMessages[chatName];
+        setMessages(newMessages);
     }
 
     const onAddMessage = (chatId: string, newMessage: Message) => {
