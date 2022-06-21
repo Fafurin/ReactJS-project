@@ -1,6 +1,6 @@
 import React from "react";
 import {FC} from "react";
-import {Message} from "../../constants";
+import {Message} from "../../store/messages/reducer";
 
 interface MessageListProps {
     messages: Message[]
