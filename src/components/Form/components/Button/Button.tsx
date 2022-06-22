@@ -1,16 +1,22 @@
 import {FC} from 'react';
+import React from 'react';
 import MUIButton from '@mui/material/Button';
 
 interface ButtonProps {
-    label: string,
     disabled?: boolean,
-    click?: () => void
+    click?: () => void,
+    children: React.ReactNode
 }
 
-export const Button: FC<ButtonProps> = ({label, disabled = false, click = () => null}) => {
+export const Button: FC<ButtonProps> = ({children, disabled = false, click}) => {
     return (
-        <MUIButton variant="contained" disabled={disabled} onClick={click} type="submit">
-            {label}
+        <MUIButton
+            disabled={disabled}
+            variant="contained"
+            type="submit"
+            onClick={click}
+        >
+            {children}
         </MUIButton>
     );
 }

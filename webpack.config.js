@@ -5,59 +5,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: path.resolve(__dirname, './src/index.tsx'),
-    module: {
-      rules: [
-          {
-              exclude: /node_modules/,
-              test: /\.(j|t)sx?$/,
-              use: ['babel-loader']
-          },
-          {
-              exclude: /\.module\.s?css$/i,
-              test: /\.s?css$/i,
-              use: [
-                  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          modules: {
-                              localIdentName: '[name]__[hash:base64:5]',
-                              mode: 'icss',
-                          },
-                      },
-                  },
-                  'sass-loader',
-              ],
-          },
-          {
-              test: /\.module\.s?css$/i,
-              use: [
-                  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          modules: {
-                              localIdentName: '[name]__[hash:base64:5]',
-                              mode: 'local',
-                          },
-                      },
-                  },
-                  'sass-loader',
-              ],
-          },
-          {
-              generator: {
-                  filename: 'static/[hash][ext]',
-              },
-              test: /\.(png|svg|jpg|jpeg|gif)$/i,
-              type: 'asset/resource',
-          },
-      ],
+    devServer: {
+        client: {
+            logging: 'info',
+        },
+        compress: true,
+        historyApiFallback: true,
+        port: 8000,
     },
-    // optimization: {
-    //   minimizer: ['...', new CssMinimizerPlugin()],
-    // },
+    devtool:
+        process.env.NODE_ENV === 'production'
+            ? 'hidden-source-map'
+            : 'eval-source-map',
+    entry: path.resolve(__dirname, './src/index.tsx'),
     output: {
         clean: true,
         environment: {
@@ -66,10 +26,50 @@ module.exports = {
         filename: '[name].bundle.[chunkhash].js',
         path: path.resolve(__dirname, './build'),
     },
-    performance: {
-      hints: false,
-      maxAssetSize: 512000,
-      maxEntrypointSize: 512000,
+    resolve: {
+        extensions: ['.jsx', '.js', '.tsx', '.ts'],
+    },
+    module: {
+        rules: [
+            {
+                exclude: /node_modules/,
+                test: /\.(j|t)sx?$/,
+                use: ['babel-loader']
+            },
+            {
+                exclude: /\.module\.s?css$/i,
+                test: /\.s?css$/i,
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[hash:base64:5]',
+                                mode: 'icss',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.module\.s?css$/i,
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[hash:base64:5]',
+                                mode: 'local',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -82,16 +82,6 @@ module.exports = {
                     chunkFilename: '[name].[contenthash].css',
                     filename: '[name].[contenthash].css',
                 }),
-              ]),
-        // ...(withReport ? new BundleAnalyzerPlugin() : ''),
-    ],
-    resolve: {
-        alias: {
-           components: path.resolve(__dirname, 'src/components/'),
-           src: path.resolve(__dirname, 'src'),
-           store: path.resolve(__dirname, 'src/store'),
-           svg: path.resolve(__dirname, 'src/assets/svg'),
-        },
-        extensions: ['.jsx', '.js', '.tsx', '.ts'],
-    },
+            ]),
+    ]
 }
