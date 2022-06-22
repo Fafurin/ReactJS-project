@@ -10,9 +10,9 @@ export const MessageList: FC<MessageListProps> = ({messages}) => {
     return (
         <ul>
             {messages.map((message, index) => (
-            <li key={index}>
-                {message.author}: {message.text}
-            </li>
+                <li key={index}>
+                    {message.author}: {message.text}
+                </li>
             ))}
         </ul>
     );
