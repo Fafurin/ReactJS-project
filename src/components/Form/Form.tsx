@@ -1,37 +1,31 @@
-import style from "../MessageList/MessageList.module.css";
-import {useState, FC} from "react";
-import {AUTHOR} from "../../constants";
+import React, {memo} from "react";
+import {FC, useState} from "react";
 import {Button} from "./components/Button";
 import {Textarea} from "./components/Textarea";
-import {Message} from "../../types";
+import {useDispatch} from "react-redux";
+import {addMessage} from "../../store/messages/actions";
+import {useParams} from "react-router-dom";
 
-interface FormProps {
-    addMessage: (msg: Message) => void
-}
-
-export const Form: FC<FormProps> = ({addMessage}) => {
+export const Form: FC = memo(() => {
 
     const [text, setText] = useState('');
 
+    const dispatch = useDispatch();
+    const {chatId} = useParams();
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        addMessage({
-            author: AUTHOR.user,
-            text,
-        });
+        if (chatId) {
+            dispatch(addMessage(chatId, text));
+        }
         setText('');
-    }
-
-    const handleClickButton = () => {
-        console.log('button click')
-    }
+    };
 
     return (
-        <form onSubmit={handleSubmit} className={style.form}>
-            <p className={style.label}>Message:</p>
+        <form onSubmit={handleSubmit}>
             <Textarea text={text} setText={setText}/>
             <br/>
-            <Button label="send" click={handleClickButton}/>
+            <Button>Send</Button>
         </form>
     );
-};
+});

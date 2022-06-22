@@ -1,34 +1,47 @@
-import {FC, useEffect, useState} from 'react';
-import {MessageList} from "./components/MessageList/MessageList";
-import {Form} from "./components/Form";
-import {AUTHOR} from "./constants";
-import {Message} from "./types";
+import React, {Suspense, useState} from "react";
+import {FC} from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Main} from "./pages/Main";
+import {ChatList} from "./components/ChatList/ChatList";
+import {Header} from "./components/Header";
+import {ChatPage} from "./pages/ChatPage/ChatPage";
+import {defaultContext} from "./utils/ThemeContext";
+import {ThemeContext} from "./utils/ThemeContext";
+import {store} from "./store";
+import {Provider} from "react-redux";
+import {AboutWithConnect} from "./pages/About";
+
+const Profile = React.lazy(()=> import('./pages/Profile').then(({Profile}) => ({
+    default: Profile
+})));
 
 export const App: FC = () => {
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [theme, setTheme] = useState(defaultContext.theme);
 
-    const addMessage = (newMessage: Message) => {
-        setMessages([...messages, newMessage]);
-    };
-
-    useEffect(() => {
-        if (messages.length > 0 &&
-            messages[messages.length - 1].author === AUTHOR.user) {
-            const timeout = setTimeout(() => {
-                        addMessage({
-                        author: AUTHOR.bot,
-                        text: 'Hello, Im BOT',
-                    })
-                }, 1000);
-
-            return ()=>{clearTimeout(timeout)};
-        }
-    }, [messages]);
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
+    }
 
     return (
-        <div className="app">
-            <MessageList messages={messages}/>
-            <Form addMessage={addMessage}/>
-        </div>
-    )
-}
+        <Provider store={store}>
+            <Suspense fallback={<div>Loading...</div>}>
+                <ThemeContext.Provider value={{theme, toggleTheme}}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<Header/>}>
+                                <Route index element={<Main/>}/>
+                                <Route path="profile" element={<Profile/>}/>
+                                <Route path="about" element={<AboutWithConnect/>}/>
+                                <Route path="chats">
+                                    <Route index element={<ChatList/>}/>
+                                    <Route path=":chatId" element={<ChatPage/>}/>
+                                </Route>
+                            </Route>
+                            <Route path="*" element={<h2>404 page</h2>}/>
+                        </Routes>
+                    </BrowserRouter>
+                </ThemeContext.Provider>
+            </Suspense>
+        </Provider>
+    );
+};
