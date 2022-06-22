@@ -3,7 +3,7 @@ export enum Authors {
     bot = 'BOT'
 }
 
-export interface Chat {
-    id: string,
-    name: string
+export interface Message {
+    author: Authors,
+    text: string
 }

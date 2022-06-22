@@ -3,7 +3,7 @@ import {FC} from "react";
 import {connect} from "react-redux";
 import {StoreState} from "../store";
 import {Dispatch} from "redux";
-import {toggleProfile} from "../store/profile/actions";
+import {toggleProfile} from "../store/profile/slice";
 
 export const About: FC = (props: any) => {
    return (
