@@ -1,3 +1,4 @@
+
 import React from "react";
 import {FC} from "react";
 import {Message} from "../../store/messages/reducer";
@@ -16,4 +17,4 @@ export const MessageList: FC<MessageListProps> = ({messages}) => {
             ))}
         </ul>
     );
-};
+}; 

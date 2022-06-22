@@ -44,4 +44,4 @@ export const App: FC = () => {
             </Suspense>
         </Provider>
     );
-};
+}; 
