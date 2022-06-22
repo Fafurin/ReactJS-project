@@ -35,10 +35,10 @@ export const App: FC = () => {
 
     const chats = useMemo(
         () =>
-        Object.keys(messages).map((chat) => ({
-            id: nanoid(),
-            name: chat,
-        })),
+            Object.keys(messages).map((chat) => ({
+                id: nanoid(),
+                name: chat,
+            })),
         [Object.keys(messages).length]
     );
 

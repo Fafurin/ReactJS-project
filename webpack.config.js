@@ -6,12 +6,12 @@ const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
     devServer: {
-      client: {
-          logging: 'info',
-      },
-      compress: true,
-      historyApiFallback: true,
-      port: 8000,
+        client: {
+            logging: 'info',
+        },
+        compress: true,
+        historyApiFallback: true,
+        port: 8000,
     },
     devtool:
         process.env.NODE_ENV === 'production'
@@ -27,49 +27,49 @@ module.exports = {
         path: path.resolve(__dirname, './build'),
     },
     resolve: {
-      extensions: ['.jsx', '.js', '.tsx', '.ts'],
+        extensions: ['.jsx', '.js', '.tsx', '.ts'],
     },
     module: {
-      rules: [
-          {
-              exclude: /node_modules/,
-              test: /\.(j|t)sx?$/,
-              use: ['babel-loader']
-          },
-          {
-              exclude: /\.module\.s?css$/i,
-              test: /\.s?css$/i,
-              use: [
-                  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          modules: {
-                              localIdentName: '[name]__[hash:base64:5]',
-                              mode: 'icss',
-                          },
-                      },
-                  },
-                  'sass-loader',
-              ],
-          },
-          {
-              test: /\.module\.s?css$/i,
-              use: [
-                  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          modules: {
-                              localIdentName: '[name]__[hash:base64:5]',
-                              mode: 'local',
-                          },
-                      },
-                  },
-                  'sass-loader',
-              ],
-          },
-      ]
+        rules: [
+            {
+                exclude: /node_modules/,
+                test: /\.(j|t)sx?$/,
+                use: ['babel-loader']
+            },
+            {
+                exclude: /\.module\.s?css$/i,
+                test: /\.s?css$/i,
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[hash:base64:5]',
+                                mode: 'icss',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.module\.s?css$/i,
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[hash:base64:5]',
+                                mode: 'local',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -82,6 +82,6 @@ module.exports = {
                     chunkFilename: '[name].[contenthash].css',
                     filename: '[name].[contenthash].css',
                 }),
-              ]),
+            ]),
     ]
 }
