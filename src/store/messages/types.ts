@@ -1,4 +1,5 @@
 import {ADD_CHAT, ADD_MESSAGE, DELETE_CHAT} from "./actions";
+import {Message} from "../../constants";
 
 export type MessageActions = ReturnType<AddChat> | ReturnType<DeleteChat> | ReturnType<AddMessage>;
 
@@ -12,8 +13,8 @@ export type DeleteChat = (chatName: string) => {
     chatName: string
 }
 
-export type AddMessage = (chatName: string, text: string) => {
+export type AddMessage = (chatName: string, message: Message) => {
     type: typeof ADD_MESSAGE,
     chatName: string,
-    text: string
+    message: Message
 }

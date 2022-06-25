@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {FC} from "react";
 import {ThemeContext} from "../utils/ThemeContext";
-import {changeName, toggleProfile} from "../store/profile/actions";
+import {changeName, toggleProfile} from "../store/profile/slice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectName, selectVisible} from "../store/profile/selectors";
 
