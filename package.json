@@ -79,6 +79,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "prop-types": "^15.8.1",
     "styled-components": "^5.3.5"
   },
   "loki": {
