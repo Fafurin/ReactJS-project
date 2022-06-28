@@ -1,6 +1,6 @@
 import React, {FC, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addChat, deleteChat} from "../../store/messages/actions";
+import {addChat, deleteChat} from "../../store/messages/slice";
 import {ListItem} from "@mui/material";
 import {Link} from "react-router-dom";
 import {selectChats} from "../../store/messages/selectors";
@@ -19,7 +19,7 @@ export const ChatList: FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(value){
-            dispatch(addChat(value));
+            dispatch(addChat({name: value}));
             setValue('');
         }
     };
@@ -32,7 +32,7 @@ export const ChatList: FC = () => {
                         <Link to={`/chats/${chat.name}`}>
                             {chat.name}
                         </Link>
-                        <button onClick={() => dispatch(deleteChat(chat.name))}>Delete Chat</button>
+                        <button onClick={() => dispatch(deleteChat({name: chat.name}))}>Delete Chat</button>
                     </ListItem>
                 ))}
             </ul>

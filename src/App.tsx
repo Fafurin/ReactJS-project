@@ -11,6 +11,10 @@ import {persistor, store} from "./store";
 import {Provider} from "react-redux";
 import {AboutWithConnect} from "./pages/About";
 import {PersistGate} from "redux-persist/integration/react";
+import {Articles} from "./pages/Articles";
+import {SignIn} from "./pages/SignIn";
+import {PrivateRoute} from "./components/PrivateRoute";
+import {PublicRoute} from "./components/PablicRoute";
 
 const Profile = React.lazy(()=> import('./pages/Profile').then(({Profile}) => ({
     default: Profile
@@ -32,9 +36,11 @@ export const App: FC = () => {
                             <Routes>
                                 <Route path="/" element={<Header/>}>
                                     <Route index element={<Main/>}/>
-                                    <Route path="profile" element={<Profile/>}/>
+                                    <Route path="profile" element={<PrivateRoute component={<Profile/>}/>}/>
+                                    <Route path="articles" element={<Articles/>}/>
                                     <Route path="about" element={<AboutWithConnect/>}/>
-                                    <Route path="chats">
+                                    <Route path="signin" element={<PublicRoute component={<SignIn/>}/>}/>
+                                    <Route path="chats" element={<PrivateRoute/>}>
                                         <Route index element={<ChatList/>}/>
                                         <Route path=":chatId" element={<ChatPage/>}/>
                                     </Route>

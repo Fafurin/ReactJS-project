@@ -3,7 +3,7 @@ import {FC, useState} from "react";
 import {Button} from "./components/Button";
 import {Textarea} from "./components/Textarea";
 import {useDispatch} from "react-redux";
-import {addMessageWithReply} from "../../store/messages/actions";
+import {addMessageWithReply} from "../../store/messages/slice";
 import {useParams} from "react-router-dom";
 import {Authors} from "../../constants";
 import {ThunkDispatch} from "redux-thunk";
@@ -18,7 +18,7 @@ export const Form: FC = memo(() => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (chatId) {
-            dispatch(addMessageWithReply(chatId, {author: Authors.user, text}));
+            dispatch(addMessageWithReply({chatName: chatId, message: {author: Authors.user, text}}));
         }
         setText('');
     };
