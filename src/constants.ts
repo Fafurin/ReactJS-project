@@ -3,13 +3,16 @@ export enum Authors {
     bot = 'BOT'
 }
 
-<<<<<<< HEAD
 export interface Message {
     author: Authors,
     text: string
-=======
-export interface Chat {
-    id: string,
-    name: string
->>>>>>> master
 }
+
+export type MessageWithId = {id: string} & Message;
+
+export interface AddMessage {
+    chatName: string,
+    message: Message,
+}
+
+export const api = 'https://api.spaceflightnewsapi.net/v3/articles';

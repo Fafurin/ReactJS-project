@@ -3,7 +3,8 @@ import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import {profileReducer} from "./profile/slice";
-import {messageReducer} from "./messages/reducer";
+import {messagesReducer} from "./messages/slice";
+import {articlesReducer} from "./articles/slice";
 import {configureStore} from "@reduxjs/toolkit";
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 
@@ -12,12 +13,13 @@ export type StoreState = ReturnType<typeof rootReducer>;
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['profile']
+    blacklist: []
 }
 
 const rootReducer = combineReducers({
     profile: profileReducer,
-    messages: messageReducer
+    messages: messagesReducer,
+    articles: articlesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
