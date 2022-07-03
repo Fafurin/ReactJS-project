@@ -2,23 +2,24 @@ import React, {memo} from "react";
 import {FC, useState} from "react";
 import {Button} from "./components/Button";
 import {Textarea} from "./components/Textarea";
-import {useDispatch} from "react-redux";
-import {addMessageWithReply} from "../../store/messages/slice";
 import {useParams} from "react-router-dom";
 import {Authors} from "../../constants";
-import {ThunkDispatch} from "redux-thunk";
+import {getMessageListById} from "../../services/firebase";
+import {push} from "firebase/database";
 
 export const Form: FC = memo(() => {
 
     const [text, setText] = useState('');
 
-    const dispatch = useDispatch<ThunkDispatch<any, void, any>>();
     const {chatId} = useParams();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (chatId) {
-            dispatch(addMessageWithReply({chatName: chatId, message: {author: Authors.user, text}}));
+            push(getMessageListById(chatId), {
+                text,
+                author: Authors.user
+            });
         }
         setText('');
     };

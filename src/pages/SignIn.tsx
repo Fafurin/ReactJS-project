@@ -1,24 +1,27 @@
 import React, {FC, useState} from "react";
-import {useDispatch} from "react-redux";
-import {auth} from "../store/profile/slice";
 import {useNavigate} from "react-router-dom";
+import {logIn} from "../services/firebase";
 
 export const SignIn: FC = () => {
-    const [login, setLogin] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError(false);
-        if(login === 'gb' && password === 'gb') {
-            dispatch(auth(true));
-            navigate('/', {replace: true});
-        } else {
-            setError(true);
+        setError('');
+        try {
+            setLoading(true);
+            setError('');
+            await logIn(email, password);
+            navigate('/chats', {replace: true});
+        }catch (err){
+            setError((err as Error).message);
+        }finally {
+            setLoading(false)
         }
     };
 
@@ -27,12 +30,13 @@ export const SignIn: FC = () => {
             <h2>Sign in</h2>
             <form onSubmit={handleSubmit}>
                 <p>Login</p>
-                <input type="text" value={login} onChange={(e) => setLogin(e.target.value)}/>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 <p>Password</p>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 <button>Login</button>
             </form>
-            {error && <p style={{color: 'red'}}>Login or password is uncorrected</p>}
+            {loading && <div>Loading...</div>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
         </>
     )
 }
